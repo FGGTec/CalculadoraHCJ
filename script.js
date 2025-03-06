@@ -6,7 +6,8 @@ let currentInput = "";
 let currentOperator = "";
 let shouldClearDisplay = true;
 
-function coloraleatorio() {
+function coloraleatorio()
+{
     let enlaceCSS = document.getElementById("estilos");
 
     if(enlaceCSS.getAttribute("href") === "styles.css")
@@ -15,28 +16,50 @@ function coloraleatorio() {
         enlaceCSS.setAttribute("href", "styles.css");
 }
 
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
+buttons.forEach((button) =>
+{
+    button.addEventListener("click", () => 
+    {
         const buttonText = button.textContent;
 
-        if (buttonText.match(/[0-9]/)) {
-            if (shouldClearDisplay) {
+        if (buttonText.match(/[0-9]/)) 
+        {
+            if (shouldClearDisplay) 
+            {
                 display.textContent = "";
                 shouldClearDisplay = false;
             }
             display.textContent += buttonText;
         } 
-        else if (buttonText === "C") {
+        else if (buttonText === "C") 
+        {
             display.textContent = "0";
             currentInput = "";
             currentOperator = "";
             shouldClearDisplay = true;
         }
-        else if (buttonText === "D"){
-            //borrar 1 digito del operando en display
-        }
-        else if (buttonText === "=") {
-            if (currentOperator && currentInput) {
+        else if (buttonText === "D")
+        {
+            if (display.textContent.length > 1) // Si es el último dígito, devolver a 0
+            {
+                if (display.textContent[0] === '-' && display.textContent.length === 2) 
+                {// Si el número es negativo y tiene un solo dígito
+                    display.textContent = "0";
+                    shouldClearDisplay = true;
+                }
+                else
+                    display.textContent = display.textContent.slice(0, -1); // Eliminar el último dígito
+            }
+            else
+            {
+                display.textContent = "0";
+                shouldClearDisplay = true;
+            }
+        }            
+        else if (buttonText === "=") 
+        {
+            if (currentOperator && currentInput) 
+            {
                 const result = calculate(parseFloat(currentInput), currentOperator, parseFloat(display.textContent));
                 display.textContent = result;
                 currentInput = result;
@@ -44,25 +67,39 @@ buttons.forEach((button) => {
                 shouldClearDisplay = true;
             }
         }
-        else if (buttonText === "π"){
+        else if (buttonText === "π")
+        {
             display.textContent = Math.PI;
         }  
-        else if (buttonText === "√"){
+        else if (buttonText === "√")
+        {
             display.textContent = Math.sqrt(parseFloat(display.textContent));
             currentInput = display.textContent;
             shouldClearDisplay = true;
         }
-        else if (buttonText === "S"){
-            //cambia signo
+        else if (buttonText === "S")
+        {
+            if (display.textContent !== "0") // Asegúrate de que no cambie el signo de cero
+            {
+                const currentValue = parseFloat(display.textContent);
+                display.textContent = currentValue * -1; // Cambia el signo del número
+            }
         }
-        else if (buttonText === "."){
-            //agregar un punto decimal (.0) al final
+        else if (buttonText === ".")
+        {//agregar un punto decimal (.0) al final
+            if (!display.textContent.includes(".")) // Verifica si ya hay un punto decimal
+            {
+                display.textContent += "."; // Agrega un punto decimal al final
+                shouldClearDisplay = false;
+            }
         }
-        else if (buttonText === "R"){
+        else if (buttonText === "R")
+        {
             coloraleatorio()
             //cambiar los colores aleatoriamente
         }
-        else {
+        else 
+        {
             currentOperator = buttonText;
             currentInput = display.textContent;
             shouldClearDisplay = true;
@@ -70,8 +107,10 @@ buttons.forEach((button) => {
     });
 });
 
-function calculate(num1, operator, num2) {
-    switch (operator) {
+function calculate(num1, operator, num2) 
+{
+    switch (operator) 
+    {
         case "+":
             return num1 + num2;
         case "-":
@@ -79,7 +118,8 @@ function calculate(num1, operator, num2) {
         case "*":
             return num1 * num2;
         case "/":
-            if (num2 !== 0) {
+            if (num2 !== 0) 
+            {
                 return num1 / num2;
             } 
             else {
