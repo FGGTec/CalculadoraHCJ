@@ -1,0 +1,53 @@
+/* styles2.css */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.calculator {
+    background-color: limegreen;
+    border-radius: 8px;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 6px green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.display {
+    background-color: darkslategray;
+    color: white;
+    font-size: 24px;
+    font-style: italic;
+    width: 100%;
+    padding: 10px;
+    text-align: right;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+button {
+    font-size: 19px;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 9px;
+    border: inset;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: aqua;
+}
